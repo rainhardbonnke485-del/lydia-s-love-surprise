@@ -8,6 +8,8 @@ import ThingsILoveSection from '@/components/ThingsILoveSection';
 import LoveLetterSection from '@/components/LoveLetterSection';
 import CountdownSection from '@/components/CountdownSection';
 import FinalSurpriseSection from '@/components/FinalSurpriseSection';
+import LoveVideoSection from '@/components/LoveVideoSection';
+import GamesSection from '@/components/GamesSection';
 import Footer from '@/components/Footer';
 
 const Index = () => {
@@ -22,7 +24,9 @@ const Index = () => {
         <HeroSection />
         <OurStorySection />
         <PhotoMemoriesSection />
+        <LoveVideoSection />
         <DistanceSection />
+        <GamesSection />
         <ThingsILoveSection />
         <LoveLetterSection />
         <CountdownSection />
