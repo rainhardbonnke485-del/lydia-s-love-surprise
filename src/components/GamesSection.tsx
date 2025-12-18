@@ -31,7 +31,7 @@ const GamesSection = () => {
 
   const handleCardFlip = (id: number) => {
     if (flippedCards.length === 2 || matchedPairs.includes(id) || flippedCards.includes(id)) return;
-    
+
     const newFlipped = [...flippedCards, id];
     setFlippedCards(newFlipped);
 
@@ -39,7 +39,7 @@ const GamesSection = () => {
       const [first, second] = newFlipped;
       const card1 = loveCards.find(c => c.id === first);
       const card2 = loveCards.find(c => c.id === second);
-      
+
       if (card1?.pair === card2?.pair) {
         setMatchedPairs([...matchedPairs, first, second]);
         setFlippedCards([]);
@@ -53,7 +53,7 @@ const GamesSection = () => {
     if (isSpinning) return;
     setIsSpinning(true);
     setSpinResult(null);
-    
+
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * wheelOptions.length);
       setSpinResult(wheelOptions[randomIndex]);
@@ -79,27 +79,26 @@ const GamesSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
           {/* Memory Match Game */}
-          <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
+          <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-primary/20">
             <h3 className="font-display text-2xl text-primary mb-6 flex items-center gap-2">
               <Heart className="w-6 h-6" fill="currentColor" />
               Love Memory Match
             </h3>
-            
-            <div className="grid grid-cols-3 gap-3 mb-6">
+
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
               {loveCards.map((card) => (
                 <div
                   key={card.id}
                   onClick={() => handleCardFlip(card.id)}
-                  className={`aspect-square rounded-xl cursor-pointer transition-all duration-500 transform hover:scale-105 ${
-                    flippedCards.includes(card.id) || matchedPairs.includes(card.id)
+                  className={`aspect-square rounded-xl cursor-pointer transition-all duration-500 transform hover:scale-105 ${flippedCards.includes(card.id) || matchedPairs.includes(card.id)
                       ? 'bg-gradient-to-br from-primary/30 to-secondary/30 rotate-0'
                       : 'bg-gradient-to-br from-primary to-secondary rotate-y-180'
-                  } flex items-center justify-center text-4xl border-2 border-primary/30 shadow-lg`}
+                    } flex items-center justify-center text-3xl sm:text-4xl border-2 border-primary/30 shadow-lg`}
                 >
-                  {flippedCards.includes(card.id) || matchedPairs.includes(card.id) 
-                    ? card.emoji 
+                  {flippedCards.includes(card.id) || matchedPairs.includes(card.id)
+                    ? card.emoji
                     : '💝'}
                 </div>
               ))}
@@ -114,25 +113,25 @@ const GamesSection = () => {
           </div>
 
           {/* Love Wheel */}
-          <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-primary/20">
+          <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-primary/20">
             <h3 className="font-display text-2xl text-primary mb-6 flex items-center gap-2">
               <Gift className="w-6 h-6" />
               Spin the Love Wheel
             </h3>
-            
+
             <div className="relative flex flex-col items-center">
-              <div className={`w-48 h-48 rounded-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center mb-6 shadow-xl shadow-primary/30 ${isSpinning ? 'animate-spin' : ''}`}>
-                <div className="w-40 h-40 rounded-full bg-card flex items-center justify-center">
-                  <Star className="w-16 h-16 text-accent animate-pulse" fill="currentColor" />
+              <div className={`w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center mb-6 shadow-xl shadow-primary/30 ${isSpinning ? 'animate-spin' : ''}`}>
+                <div className="w-24 h-24 sm:w-40 sm:h-40 rounded-full bg-card flex items-center justify-center">
+                  <Star className="w-10 h-10 sm:w-16 sm:h-16 text-accent animate-pulse" fill="currentColor" />
                 </div>
               </div>
-              
+
               <Button variant="romantic" onClick={spinWheel} disabled={isSpinning} className="mb-4">
                 {isSpinning ? 'Spinning...' : 'Spin for Love!'} 💫
               </Button>
 
               {spinResult && (
-                <div className="animate-fade-in text-center bg-primary/10 rounded-xl p-4 border border-primary/30">
+                <div className="animate-fade-in text-center bg-primary/10 rounded-xl p-4 border border-primary/30 w-full">
                   <p className="text-foreground font-display text-lg">{spinResult}</p>
                 </div>
               )}
@@ -147,7 +146,7 @@ const GamesSection = () => {
             <p className="text-foreground/80 mb-6">Take our special love quiz and discover how well we connect...</p>
             <Link to="/love-quiz">
               <Button variant="romantic" size="lg" className="group">
-                Start Love Quiz 
+                Start Love Quiz
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
