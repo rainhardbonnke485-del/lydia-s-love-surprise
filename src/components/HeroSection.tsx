@@ -70,7 +70,7 @@ const HeroSection = () => {
         <div className="relative w-48 h-48 sm:w-64 sm:h-64 mx-auto mb-10 rounded-full overflow-hidden shadow-glow animate-glow-pulse">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30" />
           <img
-            src="public/images/Lydiah1.jpg"
+            src="/images/Lydiah1.jpg"
             alt="Beautiful Lydia"
             className="w-full h-full object-cover"
           />
