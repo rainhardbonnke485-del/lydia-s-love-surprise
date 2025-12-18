@@ -4,7 +4,17 @@ import { Button } from '@/components/ui/button';
 
 const HeroSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const startSurprise = () => {
+    setHasStarted(true);
+    if (audioRef.current) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(err => console.log("Play failed:", err));
+    }
+  };
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -17,24 +27,38 @@ const HeroSection = () => {
     }
   };
 
+  // Preload volume
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.3;
-      // Attempt to play automatically
-      const playPromise = audioRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          setIsPlaying(true);
-        }).catch(error => {
-          console.log("Autoplay prevented:", error);
-          setIsPlaying(false);
-        });
-      }
     }
   }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Intro Overlay */}
+      {!hasStarted && (
+        <div className="fixed inset-0 z-[100] bg-background flex flex-center items-center justify-center p-4">
+          <div className="text-center animate-fade-in-up">
+            <Heart className="w-20 h-20 text-primary mx-auto mb-8 animate-float fill-primary" />
+            <h2 className="font-display text-4xl sm:text-6xl font-bold text-foreground mb-8">
+              Hi <span className="text-secondary text-glow">Lydia</span> ❤️
+            </h2>
+            <Button
+              onClick={startSurprise}
+              variant="romantic"
+              size="lg"
+              className="text-xl px-12 py-8 rounded-full shadow-glow hover:scale-105 transition-transform"
+            >
+              Open Your Surprise 🎁
+            </Button>
+            <p className="mt-8 text-muted-foreground font-script text-2xl">
+              (Turn up your volume!)
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background z-10" />
 
@@ -68,11 +92,13 @@ const HeroSection = () => {
 
         {/* Photo placeholder */}
         <div className="relative w-48 h-48 sm:w-64 sm:h-64 mx-auto mb-10 rounded-full overflow-hidden shadow-glow animate-glow-pulse">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/30 z-0" />
           <img
             src="/images/Lydiah1.jpg"
             alt="Beautiful Lydia"
-            className="w-full h-full object-cover"
+            className="relative z-10 w-full h-full object-cover transition-opacity duration-700"
+            onLoad={(e) => (e.currentTarget.style.opacity = '1')}
+            style={{ opacity: 0 }}
           />
         </div>
 
